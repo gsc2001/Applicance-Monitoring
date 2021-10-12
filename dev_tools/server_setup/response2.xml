@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<m2m:cnt xmlns:m2m="http://www.onem2m.org/xml/protocols" xmlns:hd="http://www.onem2m.org/xml/protocols/homedomain" rn="test_container">
+   <ty>3</ty>
+   <ri>/in-cse/cnt-122406532</ri>
+   <pi>/in-cse/CAE894503339</pi>
+   <ct>20211008T181035</ct>
+   <lt>20211008T181035</lt>
+   <acpi>/in-cse/acp-388116387</acpi>
+   <et>20221008T181035</et>
+   <st>0</st>
+   <mni>10</mni>
+   <mbs>10000</mbs>
+   <mia>0</mia>
+   <cni>0</cni>
+   <cbs>0</cbs>
+   <ol>/in-cse/in-name/test_AE/test_container/ol</ol>
+   <la>/in-cse/in-name/test_AE/test_container/la</la>
+</m2m:cnt>

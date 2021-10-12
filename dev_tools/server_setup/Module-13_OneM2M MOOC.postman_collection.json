@@ -1,0 +1,532 @@
+{
+	"info": {
+		"_postman_id": "c9f14cff-5205-43a8-8f17-7e29a0ac31e2",
+		"name": "OneM2M MOOC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create AE",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-M2M-Origin",
+						"value": "admin:admin",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json;ty=2",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"m2m:ae\":{\r\n        \"rn\":\"GROUP_AE\",\r\n        \"api\":\"org.demo.OK\",\r\n        \"rr\":\"true\"\r\n    }\r\n}   "
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/~/in-cse/in-name/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"~",
+						"in-cse",
+						"in-name",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create CNT",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-M2M-Origin",
+						"type": "text",
+						"value": "admin:admin"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json;ty=3"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"m2m:cnt\":{\r\n        \"rn\":\"node1\",\r\n        \"min\":\"-1\"\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/~/in-cse/in-name/onem2mTutorials",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"~",
+						"in-cse",
+						"in-name",
+						"onem2mTutorials"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create CIN",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-M2M-Origin",
+						"type": "text",
+						"value": "admin:admin"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json;ty=4"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"m2m:cin\":{\r\n        \"con\":\"This is a test instance\"\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/~/in-cse/in-name/test_group",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"~",
+						"in-cse",
+						"in-name",
+						"test_group"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete AE",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "X-M2M-Origin",
+						"type": "text",
+						"value": "admin:admin"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json;ty=2"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"m2m:ae\":{\r\n        \"rn\":\"OK\"\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/~/in-cse/in-name/onem2mTutorials",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"~",
+						"in-cse",
+						"in-name",
+						"onem2mTutorials"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete CNT",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "X-M2M-Origin",
+						"value": "admin:admin",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json;ty=3",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"m2m:ae\":{\r\n        \"rn\":\"OK\"\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/~/in-cse/in-name/onem2mTutorials/DATA",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"~",
+						"in-cse",
+						"in-name",
+						"onem2mTutorials",
+						"DATA"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete CIN",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "X-M2M-Origin",
+						"value": "admin:admin",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json;ty=4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"m2m:ae\":{\r\n        \"rn\":\"OK\"\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/~/in-cse/in-name/onem2mTutorials/DATA/cin_462037889",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"~",
+						"in-cse",
+						"in-name",
+						"onem2mTutorials",
+						"DATA",
+						"cin_462037889"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update CNT",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-M2M-Origin",
+						"type": "text",
+						"value": "admin:admin"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json;ty=3"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"m2m:cnt\":{\r\n        \"rn\":\"DATA2\"\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/~/in-cse/in-name/onem2mTutorials/DATA",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"~",
+						"in-cse",
+						"in-name",
+						"onem2mTutorials",
+						"DATA"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Group",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-M2M-Origin",
+						"type": "text",
+						"value": "admin:admin"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json;ty=9"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"m2m:grp\":{\r\n        \"rn\":\"test_group\",\r\n        \"mt\":\"3\",\r\n        \"mid\":[\"/in-cse/cnt-740658696\",\"/in-cse/cnt-213733874\"],\r\n        \"mnm\":10\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/~/in-cse/in-name/GROUP_AE",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"~",
+						"in-cse",
+						"in-name",
+						"GROUP_AE"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subscription",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-M2M-Origin",
+						"type": "text",
+						"value": "admin:admin"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/xml;ty=23"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<m2m:sub xmlns:m2m=\"http://www.onem2m.org/xml/protocols\" rn=\"SUB_MY_SENSOR\">\r\n    <nu>http://localhost:1400/monitor</nu>\r\n    <nct>2</nct>\r\n</m2m:sub>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/~/in-cse/in-name/test_group",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"~",
+						"in-cse",
+						"in-name",
+						"test_group"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve AE",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-M2M-Origin",
+						"value": "admin:admin",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json;ty=2",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"m2m:ae\":{\r\n        \"rn\":\"OK\"\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/~/in-cse/in-name?fu=1&ty=2",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"~",
+						"in-cse",
+						"in-name"
+					],
+					"query": [
+						{
+							"key": "fu",
+							"value": "1"
+						},
+						{
+							"key": "ty",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve CNT",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-M2M-Origin",
+						"value": "admin:admin",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json;ty=2",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"m2m:ae\":{\r\n        \"rn\":\"OK\"\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/~/in-cse/in-name/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"~",
+						"in-cse",
+						"in-name",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve CI",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-M2M-Origin",
+						"value": "admin:admin",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json;ty=2",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"m2m:ae\":{\r\n        \"rn\":\"OK\"\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/~/in-cse/in-name/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"~",
+						"in-cse",
+						"in-name",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

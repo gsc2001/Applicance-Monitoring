@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<m2m:cin xmlns:m2m="http://www.onem2m.org/xml/protocols" xmlns:hd="http://www.onem2m.org/xml/protocols/homedomain" rn="cin_672094224">
+   <ty>4</ty>
+   <ri>/in-cse/cin-672094224</ri>
+   <pi>/in-cse/cnt-122406532</pi>
+   <ct>20211008T181929</ct>
+   <lt>20211008T181929</lt>
+   <st>0</st>
+   <cnf>message</cnf>
+   <cs>13</cs>
+   <con>test instance</con>
+</m2m:cin>

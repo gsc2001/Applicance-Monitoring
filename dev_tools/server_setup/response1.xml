@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<m2m:ae xmlns:m2m="http://www.onem2m.org/xml/protocols" xmlns:hd="http://www.onem2m.org/xml/protocols/homedomain" rn="test_AE">
+   <ty>2</ty>
+   <ri>/in-cse/CAE894503339</ri>
+   <pi>/in-cse</pi>
+   <ct>20211008T180040</ct>
+   <lt>20211008T180040</lt>
+   <lbl>test_label</lbl>
+   <acpi>/in-cse/acp-388116387</acpi>
+   <et>20221008T180040</et>
+   <api>test_ID</api>
+   <aei>CAE894503339</aei>
+   <rr>false</rr>
+</m2m:ae>

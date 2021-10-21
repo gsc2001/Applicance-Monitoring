@@ -18,4 +18,6 @@ void loop()
     // put your current below;
     float senstivity = sensor.getSensitivity(10);
     Serial.println(senstivity);
+
+    delay(1000);
 }

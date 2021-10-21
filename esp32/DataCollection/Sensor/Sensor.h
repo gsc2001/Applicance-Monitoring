@@ -12,5 +12,4 @@ public:
     float getSensitivity(float current);
     float readAverage(float offset = 0, int iters = 500);
     float readRMS();
-    static float findSenstivity();
 };

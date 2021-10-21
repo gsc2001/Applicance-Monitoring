@@ -3,7 +3,6 @@
 
 void setup()
 {
-  WiFi.begin("SABBY", "harjus2001");
   // put your setup code here, to run once:
 }
 

@@ -2,6 +2,11 @@
 #include <Arduino.h>
 #include "Sensor.h"
 
+void waitForDeviceConnected()
+{
+  // code here to wait till device is connected: @tichnas
+}
+
 Sensor::Sensor(int pin, float sensitivity)
 {
   this->pin = pin;
@@ -64,16 +69,6 @@ void Sensor::init()
     Serial.begin(115200);
   Serial.println("Initializing Sensor...");
   this->zeroValue = this->getZeroValue();
-  this->sensitivity = this->getSensitivity(10); // Change value of current
-  Serial.print("Sensitivity = ");
-  Serial.println(this->sensitivity);
-  Serial.println("Connect Device and enter `done`");
-  String _data = Serial.readStringUntil('\r\n');
-  if (_data == "done")
-    Serial.println("Initialization Done");
-  else
-  {
-    Serial.println("Initialization Failed!");
-    exit(1);
-  }
+  waitForDeviceConnected();
+  Serial.println("Device connected ...");
 }

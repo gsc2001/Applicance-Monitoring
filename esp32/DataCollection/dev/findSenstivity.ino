@@ -1,7 +1,6 @@
 #include <WiFi.h>
-#include <ThingSpeak.h>
-#include "../Sensor/Sensor.h"
-#include "../config.h"
+#include "Sensor/Sensor.h"
+#include "config.h"
 
 // senstivity 0 for now
 Sensor sensor(SENSOR_PIN, 0);

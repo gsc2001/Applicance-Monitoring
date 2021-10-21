@@ -2,10 +2,10 @@
 #include <Arduino.h>
 #include "Sensor.h"
 
-Sensor::Sensor(int pin, float senstivity)
+Sensor::Sensor(int pin, float sensitivity)
 {
   this->pin = pin;
-  this->senstivity = senstivity;
+  this->sensitivity = sensitivity;
   this->zeroValue = 0;
 }
 
@@ -14,7 +14,7 @@ std::vector<float> Sensor::read(int iters, int gapMilis)
   std::vector<float> readings(iters);
   for (int i = 0; i < iters; i++)
   {
-    readings[i] = analogRead(this->pin);
+    readings[i] = 3.3 * analogRead(this->pin) / 4096;
     delay(gapMilis);
   }
   return readings;
@@ -43,12 +43,30 @@ float Sensor::getZeroValue()
   return zero;
 }
 
+float Sensor::getSensitivity(float current)
+{
+  Serial.println("Finding Sensitivity. Make sure zero value was initialized.");
+  auto readings = read(1000, 2);
+
+  float vrms2 = 0;
+
+  for (float reading : readings)
+    vrms2 += pow(reading - this->zeroValue, 2);
+
+  vrms2 /= 500;
+
+  return sqrt(vrms2) / current;
+}
+
 void Sensor::init()
 {
   if (!Serial.available())
     Serial.begin(115200);
   Serial.println("Initializing Sensor...");
   this->zeroValue = this->getZeroValue();
+  this->sensitivity = this->getSensitivity(10); // Change value of current
+  Serial.print("Sensitivity = ");
+  Serial.println(this->sensitivity);
   Serial.println("Connect Device and enter `done`");
   String _data = Serial.readStringUntil('\r\n');
   if (_data == "done")

@@ -10,6 +10,5 @@ public:
     std::vector<float> read(int iters = 500, int gapMilis = 2);
     float getZeroValue();
     float getSensitivity(float current);
-    float readAverage(float offset = 0, int iters = 500);
-    float readRMS();
+    int getData();
 };

@@ -23,13 +23,13 @@ app.use(express.json());
 
 app.post("/", async (req, res) => {
   try {
+    res.send("success");
+    console.log(req.body);
     const device = req.body.device;
     const dataPoints = req.body.data;
 
     const data = new Data({ device, data: dataPoints });
     await data.save();
-
-    res.json(data);
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ msg: "Server Error" });

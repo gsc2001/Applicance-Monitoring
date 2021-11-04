@@ -1,10 +1,22 @@
 #include <bits/stdc++.h>
 #include <Arduino.h>
 #include "Sensor.h"
+#include "../config.h"
+#define TOUCH_PIN T0
+
+bool isDeviceConnected = false;
+
+void deviceConnected()
+{
+  isDeviceConnected = true;
+}
 
 void waitForDeviceConnected()
 {
-  // code here to wait till device is connected: @tichnas
+  touchAttachInterrupt(TOUCH_PIN, deviceConnected, 40);
+
+  while (!isDeviceConnected)
+    delay(1000);
 }
 
 Sensor::Sensor(int pin, float sensitivity)
@@ -23,6 +35,16 @@ std::vector<float> Sensor::read(int iters, int gapMilis)
     delay(gapMilis);
   }
   return readings;
+}
+
+int Sensor::getData()
+{
+  float reading = this->read(1, 0)[0];
+  reading -= this->zeroValue;
+  reading /= this->sensitivity;
+  reading *= 10000;
+
+  return reading;
 }
 
 float Sensor::getZeroValue()

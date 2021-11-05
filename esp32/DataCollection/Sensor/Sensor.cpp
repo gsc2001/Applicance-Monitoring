@@ -13,10 +13,13 @@ void deviceConnected()
 
 void waitForDeviceConnected()
 {
+  pinMode(2, OUTPUT);
   touchAttachInterrupt(TOUCH_PIN, deviceConnected, 40);
 
+  digitalWrite(2, HIGH);
   while (!isDeviceConnected)
     delay(1000);
+  digitalWrite(2, LOW);
 }
 
 Sensor::Sensor(int pin, float sensitivity)
@@ -53,7 +56,6 @@ float Sensor::getZeroValue()
   float zero = 0;
   for (int i = 0; i < 3; i++)
   {
-    float avg_reading = 0;
     auto readings = read(500, 2);
     float avg_reading = 0;
     for (auto r : readings)
@@ -80,17 +82,21 @@ float Sensor::getSensitivity(float current)
   for (float reading : readings)
     vrms2 += pow(reading - this->zeroValue, 2);
 
-  vrms2 /= 500;
+  vrms2 /= 1000;
 
-  return sqrt(vrms2) / current;
+  float sensitivity = sqrt(vrms2) / current;
+  Serial.println("Sensitivity = " + String(sensitivity));
+  return sensitivity;
 }
 
 void Sensor::init()
 {
-  if (!Serial.available())
-    Serial.begin(115200);
   Serial.println("Initializing Sensor...");
   this->zeroValue = this->getZeroValue();
   waitForDeviceConnected();
   Serial.println("Device connected ...");
+
+  // Uncomment for getting sensitivity
+  Serial.println("Getting sensitivity...");
+  Serial.println(this->getSensitivity(1200 / 220.0)); // Replace 1200 with device power in Watts
 }

@@ -3,7 +3,8 @@
 #include "Sensor/Sensor.cpp"
 #include "secrets.h"
 
-MongoDB server;
+MongoDB server("Sanchit");
+Sensor sensor(35, 1); // change 1 to actual sensitivity
 
 void connectToWiFi()
 {
@@ -25,15 +26,19 @@ void setup()
   Serial.begin(115200);
   delay(5000);
 
-  Sensor sensor(35, 1); // change 1 to actual sensitivity
+  connectToWiFi();
+
   sensor.init();
+  server.setZeroValue(sensor.getZeroValue() * VALUE_MULTIPLIER);
 }
 
 void loop()
 {
-  // connectToWiFi();
-  // for (int i = 0; i <= MAX_POINTS; i++)
-  //   server.pushData("testf", 10 * 10000);
-  // Serial.println("hi");
-  // delay(2000);
+  connectToWiFi();
+
+  for (int i = 0; i < MAX_POINTS; i++)
+  {
+    server.pushData("test", sensor.getData() * VALUE_MULTIPLIER);
+    delay(100); // 10 points in each second
+  }
 }

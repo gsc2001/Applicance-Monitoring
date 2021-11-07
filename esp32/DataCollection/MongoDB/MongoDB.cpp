@@ -5,9 +5,11 @@
 #include "../secrets.h"
 #include "../config.h"
 
-MongoDB::MongoDB()
+MongoDB::MongoDB(String sender, String description = "")
 {
     this->lastConnectedDevice = "";
+    this->sender = sender;
+    this->description = description;
     this->dataPoints = {};
 }
 
@@ -23,7 +25,7 @@ void MongoDB::dumpToServer()
     http.begin(SERVER_URL);
     http.addHeader("Content-Type", "application/json");
 
-    String JSONstr = "{\"device\": \"" + this->lastConnectedDevice + "\", \"data\": [";
+    String JSONstr = "{\"device\": \"" + this->lastConnectedDevice + "\", \"sender\": \"" + this->sender + "\", \"description\": \"" + this->description + "\", \"zeroValue\": " + String(this->zeroValue) + ", \"data\": [";
 
     reverse(this->dataPoints.begin(), this->dataPoints.end());
     while (this->dataPoints.size())
@@ -45,6 +47,11 @@ void MongoDB::dumpToServer()
     // Serial.println(http.errorToString(statusCode).c_str());
 
     this->lastConnectedDevice = "";
+}
+
+void MongoDB::setZeroValue(int value)
+{
+    this->zeroValue = value;
 }
 
 void MongoDB::pushData(String device, int data)

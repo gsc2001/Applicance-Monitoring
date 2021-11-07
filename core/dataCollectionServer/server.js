@@ -24,11 +24,17 @@ app.use(express.json());
 app.post("/", async (req, res) => {
   try {
     res.send("success");
-    console.log(req.body);
-    const device = req.body.device;
     const dataPoints = req.body.data;
+    const { device, sender, description, zeroValue } = req.body;
 
-    const data = new Data({ device, data: dataPoints });
+    const data = new Data({
+      device,
+      data: dataPoints,
+      sender,
+      description,
+      zeroValue,
+    });
+    console.log(data);
     await data.save();
   } catch (err) {
     console.error(err.message);

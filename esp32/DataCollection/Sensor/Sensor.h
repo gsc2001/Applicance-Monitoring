@@ -10,5 +10,5 @@ public:
     std::vector<float> read(int iters = 500, int gapMilis = 2);
     float getZeroValue();
     float getSensitivity(float current);
-    int getData();
+    float getData();
 };

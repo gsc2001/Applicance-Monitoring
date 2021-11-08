@@ -1,7 +1,5 @@
 playground/
 .vscode/
 node_modules/
-.env
 .output/
 build/
-secrets.h

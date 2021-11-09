@@ -3,15 +3,18 @@
 
 class MongoDB
 {
-    String lastConnectedDevice;
+    String device;
     String sender;
+    int version;
+    int delay;
     String description;
+    int iteration;
     int zeroValue;
     std::vector<int> dataPoints;
-    void dumpToServer();
+    int dumpToServer();
 
 public:
-    MongoDB(String sender, String description);
+    MongoDB(String device, String sender, int version, int delay, String description);
     void setZeroValue(int value);
-    void pushData(String device, int data);
+    int pushData(int data);
 };

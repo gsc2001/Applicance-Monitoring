@@ -9,12 +9,24 @@ const DataSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  description: {
-    type: String,
+  version: {
+    type: Number,
+    required: true,
+  },
+  iteration: {
+    type: Number,
+    required: true,
+  },
+  delay: {
+    type: Number,
+    required: true,
   },
   zeroValue: {
     type: Number,
     required: true,
+  },
+  description: {
+    type: String,
   },
   data: [{ type: Number, required: true }],
 });

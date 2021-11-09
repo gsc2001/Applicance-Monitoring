@@ -23,19 +23,45 @@ app.use(express.json());
 
 app.post("/", async (req, res) => {
   try {
-    res.send("success");
     const dataPoints = req.body.data;
-    const { device, sender, description, zeroValue } = req.body;
-
-    const data = new Data({
+    const {
       device,
-      data: dataPoints,
       sender,
-      description,
+      version,
+      iteration,
+      delay,
       zeroValue,
+      description,
+    } = req.body;
+
+    const existingData = await Data.findOne({
+      device,
+      sender,
+      version,
+      iteration,
     });
-    console.log(data);
-    await data.save();
+
+    if (existingData) {
+      console.log("ERROR: Existing Data");
+      console.log(existingData);
+
+      res.status(409).send("Duplicate Data");
+    } else {
+      res.send("success");
+
+      const data = new Data({
+        data: dataPoints,
+        device,
+        sender,
+        version,
+        iteration,
+        delay,
+        zeroValue,
+        description,
+      });
+      console.log(data);
+      await data.save();
+    }
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ msg: "Server Error" });

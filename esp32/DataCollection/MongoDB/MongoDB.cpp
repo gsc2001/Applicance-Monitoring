@@ -5,19 +5,19 @@
 #include "../secrets.h"
 #include "../config.h"
 
-MongoDB::MongoDB(String sender, String description = "")
+MongoDB::MongoDB(String device, String sender, int version, int delay, String description = "")
 {
-    this->lastConnectedDevice = "";
+    this->device = device;
     this->sender = sender;
+    this->version = version;
+    this->delay = delay;
     this->description = description;
     this->dataPoints = {};
+    this->iteration = 0;
 }
 
-void MongoDB::dumpToServer()
+int MongoDB::dumpToServer()
 {
-    if (this->lastConnectedDevice.length() == 0)
-        return;
-
     Serial.println("Dumping");
 
     HTTPClient http;
@@ -25,7 +25,15 @@ void MongoDB::dumpToServer()
     http.begin(SERVER_URL);
     http.addHeader("Content-Type", "application/json");
 
-    String JSONstr = "{\"device\": \"" + this->lastConnectedDevice + "\", \"sender\": \"" + this->sender + "\", \"description\": \"" + this->description + "\", \"zeroValue\": " + String(this->zeroValue) + ", \"data\": [";
+    String JSONstr = String("{")                                               //
+                     + "\"device\": " + "\"" + this->device + "\", "           //
+                     + "\"sender\": " + "\"" + this->sender + "\", "           //
+                     + "\"version\": " + this->version + ", "                  //
+                     + "\"delay\": " + this->delay + ", "                      //
+                     + "\"description\": " + "\"" + this->description + "\", " //
+                     + "\"iteration\": " + this->iteration + ", "              //
+                     + "\"zeroValue\": " + this->zeroValue + ", "              //
+                     + "\"data\": [";
 
     reverse(this->dataPoints.begin(), this->dataPoints.end());
     while (this->dataPoints.size())
@@ -43,10 +51,19 @@ void MongoDB::dumpToServer()
 
     int statusCode = http.POST(JSONstr);
 
-    Serial.println(statusCode);
-    // Serial.println(http.errorToString(statusCode).c_str());
+    if (statusCode == HTTP_CODE_OK)
+        Serial.println("Success");
+    else if (statusCode == HTTP_CODE_CONFLICT)
+    {
+        Serial.println("Datapoints with the same quadruple (device, sender, version, iteration) exists. Can't overwrite.");
+        return 1;
+    }
+    else
+        Serial.println(http.errorToString(statusCode).c_str());
 
-    this->lastConnectedDevice = "";
+    this->iteration++;
+
+    return 0;
 }
 
 void MongoDB::setZeroValue(int value)
@@ -54,17 +71,12 @@ void MongoDB::setZeroValue(int value)
     this->zeroValue = value;
 }
 
-void MongoDB::pushData(String device, int data)
+int MongoDB::pushData(int data)
 {
-    if (device != this->lastConnectedDevice)
-        this->dumpToServer();
-
-    this->lastConnectedDevice = device;
     this->dataPoints.push_back(data);
 
-    // if (this->dataPoints.size() % 1000)
-    //     Serial.println(this->dataPoints.size());
-
     if (this->dataPoints.size() == MAX_POINTS)
-        this->dumpToServer();
+        return this->dumpToServer();
+
+    return 0;
 }

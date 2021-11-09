@@ -14,11 +14,17 @@ void deviceConnected()
 void waitForDeviceConnected()
 {
   pinMode(2, OUTPUT);
+
   touchAttachInterrupt(TOUCH_PIN, deviceConnected, 40);
+  // Increase 40 to increase touch sensitivity and vice-versa
+  // Refer to the numbers printing in the Serial Monitor to find the best touch sensitivity
 
   digitalWrite(2, HIGH);
   while (!isDeviceConnected)
+  {
+    Serial.println(touchRead(TOUCH_PIN));
     delay(1000);
+  }
   digitalWrite(2, LOW);
 }
 

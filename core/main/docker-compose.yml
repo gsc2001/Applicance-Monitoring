@@ -9,26 +9,20 @@ services:
             - 8000:8000
         networks:
             - web_network
+        environment:
+            DATABASE_URL: $INFLUX_DB_URL
+            DATABASE_TOKEN: $INFLUX_DB_TOKEN
 
     grafana:
         image: grafana/grafana-enterprise
         ports:
             - 3000:3000
-
-    # nginx:
-    #     image: nginx:latest
-    #     ports:
-    #         - 8000:80
-    #     volumes:
-    #         - web-root:/var/www/html
-    #         - ./config/nginx:/etc/nginx/conf.d/
-    #     depends_on:
-    #         - frontend
-    #         - backend
-    #         - db_interface
-    #     networks:
-    #         - web_network
+        volumes:
+            - grafana_vol:/var/lib/grafana
 
 networks:
     web_network:
         driver: bridge
+
+volumes:
+    grafana_vol:

@@ -1,9 +1,11 @@
+from .test import get_prediction
 model = None
 
 
-def load_model():
-    pass
+# def load_model():
+#     pass
 
 
 def run(data):
-    return 0
+    value = get_prediction(data)
+    return value

@@ -57,5 +57,7 @@ def run_ml_model():
     logging.info("Running ML")
     data = get_data()
     value = run(data)
+    logger.info(f"ML RESULT {value}")
+    value = 2019
     db = get_database()
     db.write(bucket=bucket, org=org, record=f"prediction device={value}")

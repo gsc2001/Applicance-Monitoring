@@ -2,11 +2,11 @@
 #include "MongoDB/MongoDB.cpp"
 #include "Sensor/Sensor.cpp"
 #include "secrets.h"
-#define DELAY 100 // 10 data points in each second
+#define DELAY 10 // 100 data points in each second
 
 bool error = false;
 
-MongoDB server("T", "Sanchit", 1, DELAY, "9th Nov ~4pm");
+MongoDB server("EK", "Anmol", 1, DELAY, "Electric Kettle first attempt 4PM Nov 10");
 /*
 First param ("T"): Device name
                       T: Testing
@@ -15,13 +15,15 @@ First param ("T"): Device name
                       MW: Microwave
                       IR: Iron
                       VC: Vaccum Cleaner
+                      MG: Mixer grinder
+                      EK: ELectric Kettle
 Second param ("Sanchit"): Sender name
 Third param (1): Version of the data for same device, by same sender
 Fourth param (DELAY): MUST NOT CHANGE!
 Fifth param ("9th Nov ~4pm"): Anything else you want to store in the database, date and approx time is compulsory
 */
 
-Sensor sensor(35, 1); // change 1 to actual sensitivity
+Sensor sensor(35, 0.03); // change 1 to actual sensitivity
 
 void connectToWiFi()
 {
@@ -42,17 +44,33 @@ void setup()
 {
   Serial.begin(115200);
   delay(5000);
+  Serial.println("Inside setup, before WiFi is tried to be connected");
 
   connectToWiFi();
+  //return;
 
   sensor.init();
-  server.setZeroValue(sensor.getZeroValue() * VALUE_MULTIPLIER);
+  Serial.println("Server zero value set trying");
+  server.setZeroValue(sensor.zeroValue * VALUE_MULTIPLIER);
 }
 
 // Comment everything in loop() when calculating sensitivity
 void loop()
 {
-  connectToWiFi();
+  //return;
+  // Serial.println("Entered loop");
+  // Serial.println("Zero val ie current when nothing is passed is ");
+  // Serial.println(sensor.zeroValue);
+  // // connectToWiFi();
+
+  // float current_passed = 1000.0 / 220;
+  // Serial.println("Current passed is ");
+  // Serial.println(current_passed);
+  // float senstivity = sensor.getSensitivity(current_passed);
+  // Serial.println("Sensitivity is (dV/DI)");
+  // Serial.println(senstivity);
+  // return;
+  // waitForDeviceConnected();
 
   for (int i = 0; i < MAX_POINTS && !error; i++)
   {
@@ -62,6 +80,12 @@ void loop()
       Serial.println("Breaking out of loop. Please restart with correct configuration.");
       error = true;
     }
+    // Serial.println("Current passed is ");
+    // Serial.println(current_passed);
+    // float senstivity = sensor.getSensitivity(current_passed);
+    // Serial.println("Sensitivity is (dV/DI)");
+    // Serial.println(senstivity);
+    // Serial.println("###########################");
 
     delay(DELAY);
   }

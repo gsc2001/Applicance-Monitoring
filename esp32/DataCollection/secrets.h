@@ -2,8 +2,8 @@
 #define SECRETS_H
 
 #define SSID "Agarwal Wifi 3901"
-#define PASS "air53482ekjgiejgijeijgioe"
+#define PASS "RANDOM+aifwfr53ef32f2gr4efw82"
 
-String SERVER_URL = "http://192.168.1.16:5000/";
+String SERVER_URL = "http://192.168.21.16:5000/";
 
 #endif

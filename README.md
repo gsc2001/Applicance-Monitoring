@@ -7,6 +7,7 @@ Team 19
 Error: ReferenceError: TextEncoder is not defined
 
 ```
+sudo chmod 666 /dev/ttyUSB0  
 sudo npm cache clean -f
 sudo npm install -g n
 sudo npm install -g n --force

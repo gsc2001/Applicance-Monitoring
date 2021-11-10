@@ -68,21 +68,14 @@ app.post("/", async (req, res) => {
   }
 });
 
-app.get("/:device", async (req, res) => {
-  try {
-    const device = req.params.device;
 
-    const data = await Data.find({ device });
-
-    const dataPoints = [];
-
-    data.forEach((d) => dataPoints.push(...d.data));
-
-    res.json(dataPoints);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).json({ msg: "Server Error" });
-  }
+app.post('/test/t1', async (req,res) => {
+	console.log(req.body)
+	res.send("done")
+});
+app.get('/test/t1', async (req,res) => {
+	console.log(req.body)
+	res.send("done")
 });
 
 const PORT = process.env.PORT || 5000;

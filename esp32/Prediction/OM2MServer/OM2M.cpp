@@ -19,7 +19,7 @@ int OM2M::dumpToServer()
     http.begin(OM2M_SERVER);
     http.addHeader("Content-Type", "application/json;ty=4");
     http.addHeader("X-M2M-Origin", "admin:admin");
-    String dataStr = this->delay + ",";
+    String dataStr = String(this->delay) + ",";
 
     reverse(this->dataPoints.begin(), this->dataPoints.end());
     while (this->dataPoints.size())
@@ -30,11 +30,13 @@ int OM2M::dumpToServer()
         if (this->dataPoints.size())
             dataStr += ",";
     }
-
+    // Serial.println(dataStr);
     String JSONstr = String("{ \"m2m:cin\": {\"con\":");
-    JSONstr += "\"" + dataStr + "\"";
+    // Serial.println(JSONstr);
+    JSONstr += String("\"" + dataStr + "\"");
+    // Serial.println(JSONstr);
     JSONstr += "} }";
-
+    // Serial.println(JSONstr);
     int statusCode = http.POST(JSONstr);
 
     if (statusCode == HTTP_CODE_OK)
@@ -53,7 +55,7 @@ int OM2M::dumpToServer()
 int OM2M::pushData(int data)
 {
     this->dataPoints.push_back(data);
-
+    // Serial.println(dataPoints.size());
     if (this->dataPoints.size() == MAX_POINTS)
         return this->dumpToServer();
 

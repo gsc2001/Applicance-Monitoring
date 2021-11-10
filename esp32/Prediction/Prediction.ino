@@ -1,5 +1,5 @@
-#include "OM2MServer/OM2M.h"
-#include "Sensor/Sensor.h"
+#include "OM2MServer/OM2M.cpp"
+#include "Sensor/Sensor.cpp"
 #include "secrets.h"
 #include "config.h"
 #define DELAY 10
@@ -34,7 +34,7 @@ void loop()
     connectToWiFi();
     bool error = false;
 
-    for (int i = 0; i < 100 && !error; i++)
+    for (int i = 0; i < 400 && !error; i++)
     {
         if (server.pushData(5 * VALUE_MULTIPLIER))
         {

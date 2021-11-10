@@ -16,7 +16,8 @@ bucket = "esw"
 
 @app.post("/items/{item_id}")
 def read_item(item_id: int, q: Optional[str] = None, db: WriteApi = Depends(get_database)):
-    data = f"mem,host=host1 used_percent={item_id}"
+    data = f"mem,host=host1 exact_current={item_id}"
+    print(data)
     db.write(bucket, org, data)
     return {"item_id": item_id, "q": q}
 

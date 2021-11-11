@@ -33,6 +33,7 @@ async def test():
     return "Check"
 
 cnt=0
+counter=0
 data_arr=[]
 @app.post("/om2m-callback")
 async def om2m_callback(body=Body(...), db=Depends(get_database)):
@@ -59,10 +60,11 @@ async def om2m_callback(body=Body(...), db=Depends(get_database)):
 def run_ml_model():
     logger.debug("RUNNING ML")
 
-    # global counter
-    # counter += 1
-    # if counter % 6:
-    #     return
+    global counter
+    counter += 1
+    counter%=3
+    if counter!=0:
+        return
 
     print("Running ML")
     # data = get_data()
@@ -77,7 +79,8 @@ def run_ml_model():
         "MG": 6,
         "EK": 7,
         "GY": 8,
-        "TV":9
+        "TV":9,
+        "Oil Heater":10
     }
     value = value_encode.get(value, 0)
 

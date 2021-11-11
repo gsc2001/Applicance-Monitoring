@@ -98,8 +98,8 @@ void Sensor::init()
 {
   Serial.println("Initializing Sensor...");
   this->zeroValue = this->getZeroValue();
-  // waitForDeviceConnected();
-  // Serial.println("Device connected ...");
+  waitForDeviceConnected();
+  Serial.println("Device connected ...");
 
   // Uncomment for getting sensitivity
   // Serial.println("Getting sensitivity...");

@@ -73,6 +73,6 @@ def run_ml_model():
         "EK": 7,
         "GY": 8,
     }
-    value = value_encode[value]
+    value = value_encode.get(value, 0)
     db = get_database()
     db.write(bucket=bucket, org=org, record=f"prediction device={value}")

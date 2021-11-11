@@ -30,6 +30,9 @@ void setup()
     connectToWiFi();
     sensor.init();
     server.init(DELAY);
+
+    pinMode(2, OUTPUT);
+    digitalWrite(2, HIGH);
 }
 
 void loop()

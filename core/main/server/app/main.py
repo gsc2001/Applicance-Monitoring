@@ -1,5 +1,9 @@
+from datetime import datetime
 import logging
 from logging.config import dictConfig
+from pydantic import BaseModel
+from influxdb_client.client.write_api import WriteApi
+
 from .utils.ml_runner import run
 from .utils.data_getter import get_data
 from .utils.data_pusher import get_preceprocess_data
@@ -21,7 +25,7 @@ app.add_event_handler("startup", connect_db)
 app.add_event_handler("shutdown", disconnect_db)
 
 
-@app.get('/test')
+@app.get("/test")
 async def test():
     logger.debug("TEST!")
     logger.info("TEST!")
@@ -40,13 +44,20 @@ async def om2m_callback(body=Body(...), db=Depends(get_database)):
     data_to_push = get_preceprocess_data(delay, current, timestamp)
     db.write(bucket=bucket, org=org, record=data_to_push)
 
+    run_ml_model()
+
     return "Success"
 
 
-@app.on_event("startup")
-@repeat_every(seconds=1)
 def run_ml_model():
     logger.debug("RUNNING ML")
+
+    global counter
+    counter += 1
+    if counter % 6:
+        return
+
+    print("Running ML")
     data = get_data()
     value = run(data)
     value_encode = {
@@ -60,5 +71,10 @@ def run_ml_model():
         "GY": 8,
     }
     value = value_encode.get(value, 0)
+
     db = get_database()
-    db.write(bucket=bucket, org=org, record=f"prediction device={value}")
+    db.write(
+        bucket=bucket,
+        org=org,
+        record=f"prediction device={value} {int(datetime.utcnow().timestamp() * 1e6)}000",
+    )

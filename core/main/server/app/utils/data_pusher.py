@@ -27,7 +27,9 @@ def preprocess_rms_data(delay, points, timestamp: datetime):
     rms /= len(points)
     rms = math.sqrt(rms)
 
-    return [f"prediction current_rms={rms} {int(timestamp.timestamp() * 1e6)}000"]
+    return [
+        f"prediction current_rms={rms / 10000} {int(timestamp.timestamp() * 1e6)}000"
+    ]
 
 
 def preprocess_step_data(delay, points, timestamp):
@@ -36,7 +38,7 @@ def preprocess_step_data(delay, points, timestamp):
     dt = timedelta(milliseconds=delay)
     for point in points[::-1]:
         data_to_push.append(
-            f"prediction current_step={point} {int(current_time.timestamp() * 1e6)}000"
+            f"prediction current_step={point / 10000} {int(current_time.timestamp() * 1e6)}000"
         )
         current_time = current_time - dt
     data_to_push = data_to_push[::-1]

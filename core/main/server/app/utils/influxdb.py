@@ -1,10 +1,6 @@
-from datetime import datetime
-
 import os
-from influxdb_client import InfluxDBClient, Point, WritePrecision
-from influxdb_client.client.write_api import ASYNCHRONOUS, SYNCHRONOUS, WriteApi, WriteOptions
-import logging
-# import config
+from influxdb_client import InfluxDBClient
+from influxdb_client.client.write_api import WriteApi, WriteOptions
 
 DATABASE_URL = os.getenv('DATABASE_URL', None)
 DATABASE_TOKEN = os.getenv('DATABASE_TOKEN', None)

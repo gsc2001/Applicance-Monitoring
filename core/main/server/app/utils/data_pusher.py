@@ -4,11 +4,6 @@ from datetime import datetime, timedelta
 from .influxdb import get_database
 from influxdb_client import WriteApi
 
-# from config import org, bucket
-
-org = "gurkiratsingh2001@gmail.com"
-bucket = "esw"
-
 
 def preprocess_data(delay, points, timestamp: datetime):
     data_to_push = []

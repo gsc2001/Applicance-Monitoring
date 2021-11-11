@@ -9,4 +9,4 @@ ALLOWED_HOSTS = [
 ]
 
 org = "gurkiratsingh2001@gmail.com"
-bucket = "esw"
+bucket = "esw-live"

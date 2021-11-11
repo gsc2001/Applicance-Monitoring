@@ -63,6 +63,16 @@ def run_ml_model():
     data = get_data()
     value = run(data)
     logger.info(f"ML RESULT {value}")
-    value = 2019
+    value_encode = {
+        "WM": 1,
+        "HD": 2,
+        "MW": 3,
+        "IR": 4,
+        "VC": 5,
+        "MG": 6,
+        "EK": 7,
+        "GY": 8,
+    }
+    value = value_encode[value]
     db = get_database()
     db.write(bucket=bucket, org=org, record=f"prediction device={value}")

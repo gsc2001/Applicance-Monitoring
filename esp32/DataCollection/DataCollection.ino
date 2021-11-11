@@ -17,6 +17,7 @@ First param ("T"): Device name
                       VC: Vaccum Cleaner
                       MG: Mixer grinder
                       EK: ELectric Kettle
+                      GY: Geyser
 Second param ("Sanchit"): Sender name
 Third param (1): Version of the data for same device, by same sender
 Fourth param (DELAY): MUST NOT CHANGE!

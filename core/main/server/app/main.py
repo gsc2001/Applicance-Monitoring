@@ -1,21 +1,32 @@
 import logging
+from logging.config import dictConfig
 from .utils.ml_runner import run
 from .utils.data_getter import get_data
 from .utils.data_pusher import get_preceprocess_data
 from .utils.influxdb import connect_db, disconnect_db, get_database
+from .utils.log_config import LogConfig
 from fastapi_utils.tasks import repeat_every
 from datetime import datetime
 from fastapi import FastAPI, Depends, Body
-from config import org, bucket
+from .config import org, bucket
 
 
 # logging.basicConfig(level=logging.DEBUG)
+dictConfig(LogConfig().dict())
 
-app = FastAPI()
+app = FastAPI(debug=True)
 logger = logging.getLogger("API")
 
 app.add_event_handler("startup", connect_db)
 app.add_event_handler("shutdown", disconnect_db)
+
+
+@app.get('/test')
+async def test():
+    logger.debug("TEST!")
+    logger.info("TEST!")
+    logger.warning("TEST!")
+    return "Check"
 
 
 @app.post("/om2m-callback")
@@ -33,8 +44,9 @@ async def om2m_callback(body=Body(...), db=Depends(get_database)):
 
 
 @app.on_event("startup")
-@repeat_every(seconds=60)
+@repeat_every(seconds=1)
 def run_ml_model():
+    logger.debug("RUNNING ML")
     data = get_data()
     value = run(data)
     value_encode = {

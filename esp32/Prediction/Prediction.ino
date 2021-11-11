@@ -5,6 +5,7 @@
 #define DELAY 10
 
 OM2M server;
+Sensor sensor(35, 0.05);
 
 void connectToWiFi()
 {
@@ -26,6 +27,7 @@ void setup()
     Serial.begin(115200);
     delay(5000);
     connectToWiFi();
+    sensor.init();
     server.init(DELAY);
 }
 
@@ -36,7 +38,7 @@ void loop()
 
     for (int i = 0; i < 400 && !error; i++)
     {
-        if (server.pushData(5 * VALUE_MULTIPLIER))
+        if (server.pushData(sensor.getData() * VALUE_MULTIPLIER))
         {
             Serial.println("ERROR: Wrong configuration");
             Serial.println("Breaking out of loop. Please restart with correct configuration.");

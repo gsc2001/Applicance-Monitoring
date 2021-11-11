@@ -53,7 +53,7 @@ def get_prediction(input_arr, model_key="RISE"):
     # key exists
     prediction_labels = models_dict[model_key].predict(input_arr)
     f_dict = Counter(prediction_labels)
-    print(f_dict.keys())
+    print(f_dict)
     max_f = -1
     best_key = None
     for curr_pred, pred_freq in f_dict.items():

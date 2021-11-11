@@ -2,7 +2,7 @@ from .influxdb import get_client
 
 
 def get_data():
-    query = 'from(bucket: "esw-live") |> range(start: -1h) |> filter(fn: (r) => r._field == "current") |> sort(columns: ["_time"])'
+    query = 'from(bucket: "esw") |> range(start: -1h) |> filter(fn: (r) => r._field == "current") |> sort(columns: ["_time"])'
     client = get_client()
     tables = client.query_api().query(query)
     table = tables[0]

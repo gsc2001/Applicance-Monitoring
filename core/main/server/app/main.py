@@ -33,9 +33,11 @@ async def test():
     return "Check"
 
 cnt=0
+data_arr=[]
 @app.post("/om2m-callback")
 async def om2m_callback(body=Body(...), db=Depends(get_database)):
     global cnt
+    global data_arr
     cnt+=1
     logger.debug(str(cnt));
     points = body["m2m:sgn"]["m2m:nev"]["m2m:rep"]["m2m:cin"]["con"]
@@ -44,11 +46,12 @@ async def om2m_callback(body=Body(...), db=Depends(get_database)):
     delay = points[0]
     current = points[1:]
     timestamp = datetime.utcnow()
+    data_arr.extend(current)
     data_to_push = get_preceprocess_data(delay, current, timestamp)
     db.write(bucket=bucket, org=org, record=data_to_push)
 
     run_ml_model()
-    return "Successful Modified"
+    # return "Successful Modified"
 
     return "Success"
 
@@ -62,9 +65,9 @@ def run_ml_model():
     #     return
 
     print("Running ML")
-    data = get_data()
-    # value = run(data)
-    value="WM"
+    # data = get_data()
+    value = run(data_arr)
+    # value="WM"
     value_encode = {
         "WM": 1,
         "HD": 2,
@@ -74,6 +77,7 @@ def run_ml_model():
         "MG": 6,
         "EK": 7,
         "GY": 8,
+        "TV":9
     }
     value = value_encode.get(value, 0)
 

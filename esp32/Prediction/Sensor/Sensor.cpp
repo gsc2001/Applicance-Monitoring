@@ -51,7 +51,7 @@ float Sensor::getData()
   float reading = this->read(1, 0)[0];
   reading -= this->zeroValue;
   reading /= this->sensitivity;
-  return 3;
+  // return 3;
   return reading;
 }
 

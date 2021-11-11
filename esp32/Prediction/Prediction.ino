@@ -5,7 +5,7 @@
 #define DELAY 10
 
 OM2M server;
-Sensor sensor(35, 0.05);
+Sensor sensor(SENSOR_PIN, SENSOR_SENSTIVITY);
 
 void connectToWiFi()
 {

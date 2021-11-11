@@ -43,23 +43,16 @@ async def om2m_callback(body=Body(...), db=Depends(get_database)):
     timestamp = datetime.utcnow()
     data_to_push = get_preceprocess_data(delay, current, timestamp)
     db.write(bucket=bucket, org=org, record=data_to_push)
-
-    run_ml_model()
-
     return "Success"
 
 
+@app.on_event('startup')
+@repeat_every(seconds=60)
 def run_ml_model():
     logger.debug("RUNNING ML")
-
-    global counter
-    counter += 1
-    if counter % 6:
-        return
-
-    print("Running ML")
     data = get_data()
     value = run(data)
+    logger.debug(f"ML MODEL RESULT {value}")
     value_encode = {
         "WM": 1,
         "HD": 2,
@@ -71,7 +64,6 @@ def run_ml_model():
         "GY": 8,
     }
     value = value_encode.get(value, 0)
-
     db = get_database()
     db.write(
         bucket=bucket,

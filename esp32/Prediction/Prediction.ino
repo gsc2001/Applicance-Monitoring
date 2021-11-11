@@ -5,7 +5,7 @@
 #define DELAY 10
 
 OM2M server;
-Sensor sensor(SENSOR_PIN, SENSOR_SENSTIVITY);
+Sensor sensor(35, 0.03);
 
 void connectToWiFi()
 {
@@ -30,9 +30,6 @@ void setup()
     connectToWiFi();
     sensor.init();
     server.init(DELAY);
-
-    pinMode(2, OUTPUT);
-    digitalWrite(2, HIGH);
 }
 
 void loop()
@@ -42,7 +39,9 @@ void loop()
 
     for (int i = 0; i < MAX_POINTS && !error; i++)
     {
-        if (server.pushData(sensor.getData() * VALUE_MULTIPLIER))
+        float rec_data=sensor.getData();
+        //Serial.println(rec_data);
+        if (server.pushData( rec_data* VALUE_MULTIPLIER))
         {
             Serial.println("ERROR: Wrong configuration");
             Serial.println("Breaking out of loop. Please restart with correct configuration.");

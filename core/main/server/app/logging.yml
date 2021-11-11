@@ -1,0 +1,16 @@
+version: 1
+
+formatters:
+    console:
+        format: "%(levelname)s\t%(name)s\t%(message)s"
+
+handlers:
+    console:
+        class: logging.StreamHandler
+        formatter: console
+        stream: ext://sys.stderr
+        level: INFO
+
+root:
+    handlers: [console]
+    level: INFO

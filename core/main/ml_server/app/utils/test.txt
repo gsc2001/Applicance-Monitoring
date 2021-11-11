@@ -1,9 +1,22 @@
+import sys
 import numpy as np
 import pandas as pd
 import pickle
+import json
+
+from sklearn.model_selection import train_test_split
+
+from sktime.classification.dictionary_based import IndividualBOSS, ContractableBOSS, BOSSEnsemble
+from sktime.classification.hybrid import HIVECOTEV1
+from sktime.classification.kernel_based import ROCKETClassifier
+from sktime.classification.shapelet_based import ShapeletTransformClassifier
+from sktime.contrib.vector_classifiers._rotation_forest import RotationForest
+from sktime.classification.interval_based import RandomIntervalSpectralForest, TimeSeriesForestClassifier
+from sktime.classification.distance_based import KNeighborsTimeSeriesClassifier
 #######################################################
 from collections import Counter
 ########################################
+
 FILE_NAME = "/code/app/utils/300_0.8_models.pckl"
 model_key = {
     "Rocket_Classifier": "Rocket",
@@ -39,6 +52,13 @@ def get_correct_format(arr):
     for curr_arr in arr:
         ret_arr.append([pd.Series(curr_arr)])
     return pd.DataFrame(ret_arr)
+
+
+ans = ret_splitted_array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], 6)
+print(ans)
+ans = get_correct_format(ans)
+print(ans)
+
 
 
 def get_prediction(input_arr, model_key="RISE"):

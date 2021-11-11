@@ -19,6 +19,18 @@ services:
             - 3000:3000
         volumes:
             - grafana_vol:/var/lib/grafana
+    ml_server:
+        build: ./ml_server
+        restart: always
+        volumes:
+            - ./ml_server/app:/code/app
+        # ports:
+        #     - 8000:8000
+        networks:
+            - web_network
+        environment:
+            DATABASE_URL: $INFLUX_DB_URL
+            DATABASE_TOKEN: $INFLUX_DB_TOKEN
 
 networks:
     web_network:

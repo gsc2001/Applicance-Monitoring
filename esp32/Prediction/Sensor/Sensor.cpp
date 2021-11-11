@@ -15,7 +15,7 @@ void waitForDeviceConnected()
 {
   pinMode(2, OUTPUT);
 
-  touchAttachInterrupt(TOUCH_PIN, deviceConnected, 40);
+  touchAttachInterrupt(TOUCH_PIN, deviceConnected, 60);
   // Increase 40 to increase touch sensitivity and vice-versa
   // Refer to the numbers printing in the Serial Monitor to find the best touch sensitivity
 
@@ -98,8 +98,8 @@ void Sensor::init()
 {
   Serial.println("Initializing Sensor...");
   this->zeroValue = this->getZeroValue();
-  waitForDeviceConnected();
-  Serial.println("Device connected ...");
+  // waitForDeviceConnected();
+  // Serial.println("Device connected ...");
 
   // Uncomment for getting sensitivity
   // Serial.println("Getting sensitivity...");

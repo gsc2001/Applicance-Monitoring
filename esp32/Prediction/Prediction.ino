@@ -26,6 +26,7 @@ void setup()
 {
     Serial.begin(115200);
     delay(5000);
+    Serial.println("Start");
     connectToWiFi();
     sensor.init();
     server.init(DELAY);
@@ -36,7 +37,7 @@ void loop()
     connectToWiFi();
     bool error = false;
 
-    for (int i = 0; i < 400 && !error; i++)
+    for (int i = 0; i < MAX_POINTS && !error; i++)
     {
         if (server.pushData(sensor.getData() * VALUE_MULTIPLIER))
         {

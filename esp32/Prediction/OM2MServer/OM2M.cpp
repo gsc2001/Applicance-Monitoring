@@ -11,19 +11,20 @@ int rand_num = 0;
 
 String encrypt_string(String s)
 {
-    int idx = -1;
-    int key_len = XOR_KEY.length();
-    String ans = "";
-    for (auto &x : s)
-    {
-        rand_num += 1;
-        rand_num %= rand_master;
-        idx += 1;
-        idx %= key_len;
-        int want = ((rand_num + (x - 44)) % 64) ^ (XOR_KEY[idx] - 44);
-        ans += want + 44;
-    }
-    return ans;
+    return s;
+    // int idx = -1;
+    // int key_len = XOR_KEY.length();
+    // String ans = "";
+    // for (auto &x : s)
+    // {
+    //     rand_num += 1;
+    //     rand_num %= rand_master;
+    //     idx += 1;
+    //     idx %= key_len;
+    //     int want = ((rand_num + (x - 44)) % 64) ^ (XOR_KEY[idx] - 44);
+    //     ans += want + 44;
+    // }
+    // return ans;
 }
 
 int OM2M::init(int delay)

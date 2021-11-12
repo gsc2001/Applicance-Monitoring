@@ -53,7 +53,9 @@ async def om2m_callback(body=Body(...), db=Depends(get_database)):
 
     # extracting data from OneM2m resource tree
     encrypted = body["m2m:sgn"]["m2m:nev"]["m2m:rep"]["m2m:cin"]["con"]
+    # print(encrypted)
     points = decrypt_string(encrypted)
+    # logger.debug(str(points));
     points = points.split(",")
     points = [float(point) for point in points]
     delay = points[0]

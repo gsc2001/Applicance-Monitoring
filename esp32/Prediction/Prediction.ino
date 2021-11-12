@@ -2,7 +2,6 @@
 #include "Sensor/Sensor.cpp"
 #include "secrets.h"
 #include "config.h"
-#include "encryption.cpp"
 #define DELAY 10
 
 OM2M server;

@@ -43,6 +43,7 @@ std::vector<float> Sensor::read(int iters, int gapMilis)
     readings[i] = 3.3 * analogRead(this->pin) / 4096;
     delay(gapMilis);
   }
+  
   return readings;
 }
 
@@ -52,6 +53,8 @@ float Sensor::getData()
   reading -= this->zeroValue;
   reading /= this->sensitivity;
   // return 3;
+  // Serial.println(reading);
+  
   return reading;
 }
 

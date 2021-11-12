@@ -4,7 +4,7 @@ import pickle
 #######################################################
 from collections import Counter
 ########################################
-FILE_NAME = "/code/app/utils/300_0.8_models.pckl"
+FILE_NAME = "/code/app/utils/300_0.9_models.pckl"
 model_key = {
     "Rocket_Classifier": "Rocket",
     "Individual_Boss": "IndividualBOSS",
@@ -41,7 +41,7 @@ def get_correct_format(arr):
     return pd.DataFrame(ret_arr)
 
 
-def get_prediction(input_arr, model_key="RISE"):
+def get_prediction(input_arr, model_key="TSForest"):
     print("Number of data points obtained is ", len(input_arr))
     input_arr = ret_splitted_array(input_arr)
     print("Number of data points obtained after truncation is ", len(input_arr))

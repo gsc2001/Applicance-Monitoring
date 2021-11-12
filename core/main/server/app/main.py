@@ -61,8 +61,8 @@ async def om2m_callback(body=Body(...), db=Depends(get_database)):
     gv.data_yet.extend(current)
 
 
-    data_to_push = get_preceprocess_data(delay, current, timestamp)
-    db.write(bucket=bucket, org=org, record=data_to_push)
+    # data_to_push = get_preceprocess_data(delay, current, timestamp)
+    # db.write(bucket=bucket, org=org, record=data_to_push)
 
     # run ml_model every 3 seconds
     if gv.tot_times_data_received%3==0:

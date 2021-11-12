@@ -15,6 +15,9 @@ from datetime import datetime
 from fastapi import FastAPI, Depends, Body
 from .config import org, bucket
 
+from collections import deque
+
+
 # logging.basicConfig(level=logging.DEBUG)
 dictConfig(LogConfig().dict())
 
@@ -73,6 +76,8 @@ async def om2m_callback(body=Body(...), db=Depends(get_database)):
 
     return "Success"
 
+MAX_QUEUE_SIZE=10
+LABEL_DEQUE=deque()
 
 def run_ml_model():
     logger.debug("RUNNING ML")
@@ -83,6 +88,11 @@ def run_ml_model():
             gv.current_label_freq_dict[curr_label]+=1
         except:
             gv.current_label_freq_dict[curr_label]=1
+        LABEL_DEQUE.append(curr_label)
+        if len(LABEL_DEQUE)>MAX_QUEUE_SIZE:
+            label_to_exlude=LABEL_DEQUE.popleft()
+            gv.current_label_freq_dict[label_to_exlude]-=1
+    
 
     
     print(gv.current_label_freq_dict)

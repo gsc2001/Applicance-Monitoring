@@ -2,6 +2,7 @@
 #include "Sensor/Sensor.cpp"
 #include "secrets.h"
 #include "config.h"
+#include "encryption.cpp"
 #define DELAY 10
 
 OM2M server;
@@ -39,9 +40,9 @@ void loop()
 
     for (int i = 0; i < MAX_POINTS && !error; i++)
     {
-        float rec_data=sensor.getData();
+        float rec_data = sensor.getData();
         //Serial.println(rec_data);
-        if (server.pushData( rec_data* VALUE_MULTIPLIER))
+        if (server.pushData(rec_data * VALUE_MULTIPLIER))
         {
             Serial.println("ERROR: Wrong configuration");
             Serial.println("Breaking out of loop. Please restart with correct configuration.");

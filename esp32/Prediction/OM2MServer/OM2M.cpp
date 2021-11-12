@@ -4,6 +4,7 @@
 #include "OM2M.h"
 #include "../secrets.h"
 #include "../config.h"
+#include "../encryption.cpp"
 
 int OM2M::init(int delay)
 {
@@ -30,7 +31,8 @@ int OM2M::dumpToServer()
         if (this->dataPoints.size())
             dataStr += ",";
     }
-    // Serial.println(dataStr);
+    dataStr = encrypt_string(dataStr);
+    Serial.println(dataStr);
     String JSONstr = String("{ \"m2m:cin\": {\"con\":");
     // Serial.println(JSONstr);
     JSONstr += String("\"" + dataStr + "\"");

@@ -80,11 +80,11 @@ async def om2m_callback(body=Body(...), db=Depends(get_database)):
 
     return "Success"
 
-MAX_QUEUE_SIZE=10
+MAX_QUEUE_SIZE=5
 LABEL_DEQUE=deque()
 
 def run_ml_model():
-    logger.debug("RUNNING ML")
+    # logger.debug("RUNNING ML")
 
     value_arr = run(gv.data_yet)
     for curr_label in value_arr:

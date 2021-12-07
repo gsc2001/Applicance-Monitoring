@@ -29,20 +29,20 @@ int rand_num = 0;
 
 String encrypt_string(String s)
 {
-  int idx = -1;
-  int key_len = XOR_KEY.length();
-  String ans = "";
-  for (int i = 0; i < s.length(); i++)
-  {
-    char x = s.charAt(i);
-    // Serial.println(x);
-    // delay(1000);
-    idx += 1;
-    idx %= key_len;
-    int want = ((rand_num + (x - 44)) % 64) ^ (XOR_KEY[idx] - 44);
-    ans += char(want + 44);
-  }
-  return ans;
+    int idx = -1;
+    int key_len = XOR_KEY.length();
+    String ans = "";
+    for (int i = 0; i < s.length(); i++)
+    {
+        char x = s.charAt(i);
+        // Serial.println(x);
+        // delay(1000);
+        idx += 1;
+        idx %= key_len;
+        int want = ((rand_num + (x - 44)) % 64) ^ (XOR_KEY[idx] - 44);
+        ans += char(want + 44);
+    }
+    return ans;
 }
 
 int OM2M::init(int delay)
@@ -58,7 +58,7 @@ int OM2M::dumpToServer()
 
     http.begin(OM2M_SERVER);
     http.addHeader("Content-Type", "application/json;ty=4");
-    http.addHeader("X-M2M-Origin", "admin:admin");
+    http.addHeader("X-M2M-Origin", "wToyFF1yQv:9tnBeXuv2n");
     String dataStr = String(this->delay) + ",";
 
     reverse(this->dataPoints.begin(), this->dataPoints.end());

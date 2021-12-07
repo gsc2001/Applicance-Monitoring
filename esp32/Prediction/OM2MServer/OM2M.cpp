@@ -5,9 +5,9 @@
 #include "../secrets.h"
 #include "../config.h"
 
-String XOR_KEY = "AB12:>";
-int rand_master = 12;
-int rand_num = 0;
+// String XOR_KEY = "AB12:>";
+// int rand_master = 12;
+// int rand_num = 0;
 
 // String encrypt_string(String s)
 // {
@@ -27,22 +27,48 @@ int rand_num = 0;
 //     // return ans;
 // }
 
-String encrypt_string(String s)
+char *key = "abcdefghijklmnop";
+unsigned char output[100];
+char input[100];
+
+String encrypt_block(String inp)
 {
-  int idx = -1;
-  int key_len = XOR_KEY.length();
-  String ans = "";
-  for (int i = 0; i < s.length(); i++)
-  {
-    char x = s.charAt(i);
-    // Serial.println(x);
-    // delay(1000);
-    idx += 1;
-    idx %= key_len;
-    int want = ((rand_num + (x - 44)) % 64) ^ (XOR_KEY[idx] - 44);
-    ans += char(want + 44);
-  }
-  return ans;
+
+    inp.toCharArray(input, inp.length());
+
+    mbedtls_aes_context aes;
+    mbedtls_aes_init(&aes);
+    mbedtls_aes_setkey_enc(&aes, (const unsigned char *)key, strlen(key) * 8);
+    mbedtls_aes_crypt_ecb(&aes, MBEDTLS_AES_ENCRYPT, (const unsigned char *)input, output);
+    mbedtls_aes_free(&aes);
+    String out = "";
+    for (int i = 0; i < 16; i++)
+    {
+        char str[3];
+        sprintf(str, "%02x", (int)output[i]);
+        out += String(str);
+    }
+
+    // Serial.println(out);
+    return out;
+}
+
+String encrypt(String s)
+{
+    while (s.length() % 16 != 0)
+    {
+        s += " ";
+    }
+
+    String encrypted = "";
+    for (int i = 0; i < s.length() - 1; i += 16)
+    {
+        encrypted += encrypt_block(s.substring(i, i + 16));
+    }
+
+    // Serial.println("Encrypted");
+    // Serial.println(encrypted);
+    return encrypted;
 }
 
 int OM2M::init(int delay)

@@ -96,7 +96,7 @@ def run_ml_model():
             label_to_exlude = LABEL_DEQUE.popleft()
             gv.current_label_freq_dict[label_to_exlude] -= 1
 
-    print(gv.current_label_freq_dict)
+    logger.debug(gv.current_label_freq_dict)
 
     # fetch most frequent label
     max_cnt = 0
@@ -105,7 +105,7 @@ def run_ml_model():
         if label_freq > max_cnt:
             max_cnt = label_freq
             best_label = curr_label
-    print("Currently want to predict ", best_label)
+    logger.debug("Currently want to predict ", best_label)
 
     # value="WM"
     value_encode = {

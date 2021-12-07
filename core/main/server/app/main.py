@@ -42,20 +42,20 @@ async def test():
 # cnt=0
 # counter=0
 # data_arr=[]
+
+
 @app.post("/om2m-callback")
 async def om2m_callback(body=Body(...), db=Depends(get_database)):
-   
-    # incrementing the 
-    gv.tot_times_data_received+=1
+
+    # incrementing the
+    gv.tot_times_data_received += 1
     logger.info("Total times data received all the times so far")
     logger.debug(str(gv.tot_times_data_received))
-    
 
     # extracting data from OneM2m resource tree
     encrypted = body["m2m:sgn"]["m2m:nev"]["m2m:rep"]["m2m:cin"]["con"]
     # print(encrypted)
     points = decrypt_string(encrypted)
-    # logger.debug(str(points));
     points = points.split(",")
     points = [float(point) for point in points]
     delay = points[0]
@@ -67,21 +67,20 @@ async def om2m_callback(body=Body(...), db=Depends(get_database)):
     # appending the newly receved data to my global array
     gv.data_yet.extend(current)
 
-    
     data_to_push = get_preceprocess_data(delay, current, timestamp)
     db.write(bucket=bucket, org=org, record=data_to_push)
 
     # run ml_model every 3 seconds
-    if gv.tot_times_data_received%3==0:
+    if gv.tot_times_data_received % 3 == 0:
         run_ml_model()
         # empty data array
-        gv.data_yet=[]
+        gv.data_yet = []
     # return "Successful Modified"
 
     return "Success"
 
-MAX_QUEUE_SIZE=5
-LABEL_DEQUE=deque()
+MAX_QUEUE_SIZE = 10
+LABEL_DEQUE = deque()
 
 def run_ml_model():
     # logger.debug("RUNNING ML")
@@ -89,25 +88,23 @@ def run_ml_model():
     value_arr = run(gv.data_yet)
     for curr_label in value_arr:
         try:
-            gv.current_label_freq_dict[curr_label]+=1
-        except:
-            gv.current_label_freq_dict[curr_label]=1
+            gv.current_label_freq_dict[curr_label] += 1
+        except BaseException:
+            gv.current_label_freq_dict[curr_label] = 1
         LABEL_DEQUE.append(curr_label)
-        if len(LABEL_DEQUE)>MAX_QUEUE_SIZE:
-            label_to_exlude=LABEL_DEQUE.popleft()
-            gv.current_label_freq_dict[label_to_exlude]-=1
-    
+        if len(LABEL_DEQUE) > MAX_QUEUE_SIZE:
+            label_to_exlude = LABEL_DEQUE.popleft()
+            gv.current_label_freq_dict[label_to_exlude] -= 1
 
-    
     print(gv.current_label_freq_dict)
 
     # fetch most frequent label
-    max_cnt=0
-    best_label="No device"
+    max_cnt = 0
+    best_label = "No device"
     for curr_label, label_freq in gv.current_label_freq_dict.items():
-        if label_freq>max_cnt:
-            max_cnt=label_freq
-            best_label=curr_label
+        if label_freq > max_cnt:
+            max_cnt = label_freq
+            best_label = curr_label
     print("Currently want to predict ", best_label)
 
     # value="WM"
@@ -120,8 +117,8 @@ def run_ml_model():
         "MG": 6,
         "EK": 7,
         "GY": 8,
-        "TV":9,
-        "Oil Heater":10
+        "TV": 9,
+        "Oil Heater": 10
     }
     value = value_encode.get(best_label, 0)
 

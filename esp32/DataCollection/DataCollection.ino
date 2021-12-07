@@ -2,11 +2,11 @@
 #include "MongoDB/MongoDB.cpp"
 #include "Sensor/Sensor.cpp"
 #include "secrets.h"
-#define DELAY 100 // 10 data points in each second
+#define DELAY 10 // 10 data points in each second
 
 bool error = false;
 
-MongoDB server("T", "Sanchit", 1, DELAY, "9th Nov ~4pm");
+MongoDB server("ND", "Anmol", 0, DELAY, "7th Dec, 4pm TEST TEST");
 /*
 First param ("T"): Device name
                       T: Testing
@@ -21,7 +21,7 @@ Fourth param (DELAY): MUST NOT CHANGE!
 Fifth param ("9th Nov ~4pm"): Anything else you want to store in the database, date and approx time is compulsory
 */
 
-Sensor sensor(35, 1); // change 1 to actual sensitivity
+Sensor sensor(35,0.02); // change 1 to actual sensitivity
 
 void connectToWiFi()
 {
@@ -52,17 +52,17 @@ void setup()
 // Comment everything in loop() when calculating sensitivity
 void loop()
 {
-  // connectToWiFi();
+  connectToWiFi();
 
-  // for (int i = 0; i < MAX_POINTS && !error; i++)
-  // {
-  //   if (server.pushData(sensor.getData() * VALUE_MULTIPLIER))
-  //   {
-  //     Serial.println("ERROR: Wrong configuration");
-  //     Serial.println("Breaking out of loop. Please restart with correct configuration.");
-  //     error = true;
-  //   }
+  for (int i = 0; i < MAX_POINTS && !error; i++)
+  {
+    if (server.pushData(sensor.getData() * VALUE_MULTIPLIER))
+    {
+      Serial.println("ERROR: Wrong configuration");
+      Serial.println("Breaking out of loop. Please restart with correct configuration.");
+      error = true;
+    }
 
-  //   delay(DELAY);
-  // }
+    delay(DELAY);
+  }
 }

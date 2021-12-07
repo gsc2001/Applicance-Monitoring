@@ -101,7 +101,7 @@ void Sensor::init()
   waitForDeviceConnected();
   Serial.println("Device connected ...");
 
-  // Uncomment for getting sensitivity
-  Serial.println("Getting sensitivity...");
-  Serial.println(this->getSensitivity(2000 / 220.0)); // Replace 1200 with device power in Watts
+  // // Uncomment for getting sensitivity
+  // Serial.println("Getting sensitivity...");
+  // Serial.println(this->getSensitivity(2000 / 220.0)); // Replace 1200 with device power in Watts
 }

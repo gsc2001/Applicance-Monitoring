@@ -34,7 +34,7 @@ char input[100];
 String encrypt_block(String inp)
 {
 
-    inp.toCharArray(input, inp.length());
+    inp.toCharArray(input, inp.length() + 1);
 
     mbedtls_aes_context aes;
     mbedtls_aes_init(&aes);
@@ -61,7 +61,7 @@ String encrypt(String s)
     }
 
     String encrypted = "";
-    for (int i = 0; i < s.length() - 1; i += 16)
+    for (int i = 0; i < s.length(); i += 16)
     {
         encrypted += encrypt_block(s.substring(i, i + 16));
     }
@@ -96,8 +96,8 @@ int OM2M::dumpToServer()
         if (this->dataPoints.size())
             dataStr += ",";
     }
-    dataStr = encrypt_string(dataStr);
     Serial.println(dataStr);
+    dataStr = encrypt(dataStr);
     String JSONstr = String("{ \"m2m:cin\": {\"con\":");
     // Serial.println(JSONstr);
     JSONstr += String("\"" + dataStr + "\"");

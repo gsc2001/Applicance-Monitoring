@@ -39,6 +39,7 @@ async def test():
     logger.warning("TEST!")
     return "Check"
 
+
 # cnt=0
 # counter=0
 # data_arr=[]
@@ -57,6 +58,12 @@ async def om2m_callback(body=Body(...), db=Depends(get_database)):
     # print(encrypted)
     points = decrypt_string(encrypted)
     points = points.split(",")
+    # points = []
+    # for point in points_list:
+    #     try:
+    #         points.append(float(point))
+    #     except:
+    #         pass
     points = [float(point) for point in points]
     delay = points[0]
 
@@ -79,8 +86,10 @@ async def om2m_callback(body=Body(...), db=Depends(get_database)):
 
     return "Success"
 
+
 MAX_QUEUE_SIZE = 10
 LABEL_DEQUE = deque()
+
 
 def run_ml_model():
     # logger.debug("RUNNING ML")
@@ -118,13 +127,43 @@ def run_ml_model():
         "EK": 7,
         "GY": 8,
         "TV": 9,
-        "Oil Heater": 10
+        "Oil Heater": 10,
     }
     value = value_encode.get(best_label, 0)
 
+    devices = {
+        "WM": "WashingMachine",
+        "HD": "HairDryer",
+        "MW": "Microwave",
+        "IR": "Iron",
+        "VC": "VacuumCleaner",
+        "MG": "MG",
+        "EK": "ElectricKettle",
+        "GY": "Geyser",
+        "TV": "TV",
+        "Oil Heater": "OilHeater",
+    }
+
+    time = f"{int(datetime.utcnow().timestamp() * 1e6)}000"
+
+    record = [f"prediction device={value} {time}"]
+
+    print(best_label)
+    for key, text in devices.items():
+        weight = gv.current_label_freq_dict.get(key, 0)
+        print(key, weight)
+        record.append(f"prediction {text}={weight} {time}")
+    print()
+    print()
+
     db = get_database()
     db.write(
-        bucket=bucket,
+        bucket="eswt",
         org=org,
-        record=f"prediction device={value} {int(datetime.utcnow().timestamp() * 1e6)}000",
+        record=record
+        # [
+        #     f"prediction WashingMachine={5} {int(datetime.utcnow().timestamp() * 1e6)}000",
+        #     f"prediction HairDryer={10} {int(datetime.utcnow().timestamp() * 1e6)}000",
+        #     f"prediction Geyser={15} {int(datetime.utcnow().timestamp() * 1e6)}000",
+        # ],
     )

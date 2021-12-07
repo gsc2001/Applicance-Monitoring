@@ -19,19 +19,20 @@ import binascii
 #
 # populate_stuff()
 
-KEY = 'abcdefghijklmnop'
+KEY = "abcdefghijklmnop"
 cipher = AES.new(KEY, AES.MODE_ECB)
 
 
 def decrypt_string(s):
     s = binascii.unhexlify(s)
     out = ""
-    for i in range(0,len(s), 16):
-        s2 = cipher.decrypt(s[i:i+16])[:-1]
-        out += s2.decode('utf-8')
+    for i in range(0, len(s), 16):
+        s2 = cipher.decrypt(s[i : i + 16])[:-1]
+        out += s2.decode("utf-8")
 
     out = out.strip()
     return out
+
 
 # def decrypt_string(s):
 #     xor_len = len(XOR_KEY)

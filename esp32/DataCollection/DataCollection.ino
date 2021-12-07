@@ -43,19 +43,26 @@ void setup()
   Serial.begin(115200);
   delay(5000);
 
+  //we want to connect to wifi, will retry again and again
   connectToWiFi();
 
+
   sensor.init();
+
+  //multupy by 1000 and send
   server.setZeroValue(sensor.getZeroValue() * VALUE_MULTIPLIER);
 }
 
 // Comment everything in loop() when calculating sensitivity
 void loop()
 {
+  //wait for wifi to get connected
   connectToWiFi();
 
   for (int i = 0; i < MAX_POINTS && !error; i++)
   {
+    //psuhData works only when MAX_POINTS has been colllected
+    //separatation between any 2 instances for 100 data points per seconds is 10, so delay should be 10 sec
     if (server.pushData(sensor.getData() * VALUE_MULTIPLIER))
     {
       Serial.println("ERROR: Wrong configuration");

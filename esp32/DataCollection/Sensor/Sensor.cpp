@@ -37,6 +37,9 @@ Sensor::Sensor(int pin, float sensitivity)
 
 std::vector<float> Sensor::read(int iters, int gapMilis)
 {
+  //takes iter readings at regular gaps
+  //this is a number between 0 and 4096, so we map it properly first
+  //readingd returns voltage, we need to convert to current
   std::vector<float> readings(iters);
   for (int i = 0; i < iters; i++)
   {
@@ -57,10 +60,12 @@ float Sensor::getData()
 
 float Sensor::getZeroValue()
 {
+  //find voltage when ZERO current is being passed
   Serial.println("Finding Zero Value");
   float zero = 0;
   for (int i = 0; i < 3; i++)
   {
+    //collect 500 readings in 2 * 500 miliseconds ie 500 readings in a seconf
     auto readings = read(500, 2);
     float avg_reading = 0;
     for (auto r : readings)

@@ -1,0 +1,74 @@
+.
+├── core
+│   ├── dataCollectionServer
+│   │   ├── data.model.js
+│   │   ├── env.example
+│   │   ├── package.json
+│   │   ├── package-lock.json
+│   │   └── server.js
+│   └── main
+│       ├── dashboard.json
+│       ├── docker-compose.yml
+│       ├── env.example
+│       ├── README.md
+│       └── server
+│           ├── app
+│           │   ├── config.py
+│           │   ├── __init__.py
+│           │   ├── main.py
+│           │   ├── shared_stuff.py
+│           │   └── utils
+│           │       ├── 300_0.8_models.pckl
+│           │       ├── 300_0.9_models.pckl
+│           │       ├── data_getter.py
+│           │       ├── data_pusher.py
+│           │       ├── decrypt.py
+│           │       ├── influxdb.py
+│           │       ├── log_config.py
+│           │       ├── ml_model.py
+│           │       ├── ml_runner.py
+│           │       └── test.txt
+│           ├── Dockerfile
+│           └── requirements.txt
+├── dev_tools
+│   └── server_setup
+│       
+├── dir_structure.txt
+├── esp32
+│   ├── DataCollection
+│   │   ├── config.h
+│   │   ├── DataCollection.ino
+│   │   ├── dev
+│   │   │   └── findSenstivity.ino
+│   │   ├── helpers
+│   │   │   └── encrypt.cpp
+│   │   ├── MongoDB
+│   │   │   ├── MongoDB.cpp
+│   │   │   └── MongoDB.h
+│   │   ├── README.md
+│   │   └── Sensor
+│   │       ├── Sensor.cpp
+│   │       └── Sensor.h
+│   └── Prediction
+│       ├── config.h
+│       ├── encryption.cpp
+│       ├── OM2MServer
+│       │   ├── OM2M.cpp
+│       │   └── OM2M.h
+│       ├── Prediction.ino
+│       └── Sensor
+│           ├── Sensor.cpp
+│           └── Sensor.h
+├── interface
+│   ├── CHANGELOG.md
+│   ├── jsconfig.json
+│   ├── LICENSE.md
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── public
+│  
+│     
+├── ml_stuff
+└── README.md
+
+36 directories, 126 files

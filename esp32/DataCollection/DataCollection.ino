@@ -52,17 +52,17 @@ void setup()
 // Comment everything in loop() when calculating sensitivity
 void loop()
 {
-  connectToWiFi();
+  // connectToWiFi();
 
-  for (int i = 0; i < MAX_POINTS && !error; i++)
-  {
-    if (server.pushData(sensor.getData() * VALUE_MULTIPLIER))
-    {
-      Serial.println("ERROR: Wrong configuration");
-      Serial.println("Breaking out of loop. Please restart with correct configuration.");
-      error = true;
-    }
+  // for (int i = 0; i < MAX_POINTS && !error; i++)
+  // {
+  //   if (server.pushData(sensor.getData() * VALUE_MULTIPLIER))
+  //   {
+  //     Serial.println("ERROR: Wrong configuration");
+  //     Serial.println("Breaking out of loop. Please restart with correct configuration.");
+  //     error = true;
+  //   }
 
-    delay(DELAY);
-  }
+  //   delay(DELAY);
+  // }
 }

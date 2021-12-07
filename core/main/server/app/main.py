@@ -106,7 +106,7 @@ def run_ml_model():
             label_to_exlude = LABEL_DEQUE.popleft()
             gv.current_label_freq_dict[label_to_exlude] -= 1
 
-    logger.debug(gv.current_label_freq_dict)
+    # logger.debug(gv.current_label_freq_dict)
 
     # fetch most frequent label
     max_cnt = 0
@@ -119,30 +119,30 @@ def run_ml_model():
 
     # value="WM"
     value_encode = {
+        "ND": 0,
         "WM": 1,
         "HD": 2,
         "MW": 3,
         "IR": 4,
-        "VC": 5,
         "MG": 6,
         "EK": 7,
         "GY": 8,
-        "TV": 9,
-        "Oil Heater": 10,
+        "AP": 11,
+        "FR": 12,
     }
     value = value_encode.get(best_label, 0)
 
     devices = {
+        "ND": "NoDevice",
         "WM": "WashingMachine",
         "HD": "HairDryer",
         "MW": "Microwave",
         "IR": "Iron",
-        "VC": "VacuumCleaner",
-        "MG": "MG",
+        "MG": "Mixer",
         "EK": "ElectricKettle",
         "GY": "Geyser",
-        "TV": "TV",
-        "Oil Heater": "OilHeater",
+        "AP": "Air Purifier",
+        "FR": "Fridge",
     }
 
     time = f"{int(datetime.utcnow().timestamp() * 1e6)}000"

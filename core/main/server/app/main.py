@@ -57,6 +57,7 @@ async def om2m_callback(body=Body(...), db=Depends(get_database)):
     encrypted = body["m2m:sgn"]["m2m:nev"]["m2m:rep"]["m2m:cin"]["con"]
     # print(encrypted)
     points = decrypt_string(encrypted)
+    logger.debug(points)
     points = points.split(",")
     # points = []
     # for point in points_list:
@@ -114,7 +115,7 @@ def run_ml_model():
         if label_freq > max_cnt:
             max_cnt = label_freq
             best_label = curr_label
-    logger.debug("Currently want to predict ", best_label)
+    # logger.debug("Currently want to predict ", best_label)
 
     # value="WM"
     value_encode = {

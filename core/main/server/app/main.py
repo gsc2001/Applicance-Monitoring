@@ -141,7 +141,7 @@ def run_ml_model():
         "MG": "Mixer",
         "EK": "ElectricKettle",
         "GY": "Geyser",
-        "AP": "Air Purifier",
+        "AP": "AirPurifier",
         "FR": "Fridge",
     }
 

@@ -41,7 +41,7 @@ def get_correct_format(arr):
     return pd.DataFrame(ret_arr)
 
 
-def get_prediction(input_arr, model_key="TSForest"):
+def get_prediction(input_arr, model_key="Rocket"):
     print("Number of data points obtained is ", len(input_arr))
     input_arr = ret_splitted_array(input_arr)
     print("Number of data points obtained after truncation is ", len(input_arr))
